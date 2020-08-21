@@ -1,29 +1,3 @@
-// document.querySelector('button').addEventListener("click",handleClick);
-
-// function handleClick() {
-//     alert("i got clicked");
-// }
-
-// detecting button press! ----------------------------------------------------------------
-for(let i = 0; i < document.querySelectorAll(".drum").length; i++){
-    // anonymus function
-    document.querySelectorAll('.drum')[i].addEventListener("click", function() {
-        //console.log(this.innerHTML);
-        //this.style.color = "white";
-
-        var buttonInnerHTML = this.innerHTML;
-        makeSound(buttonInnerHTML);
-
-        buttonAnimation(buttonInnerHTML);
-        
-    });
-}
-// detecting keyboard press! ---------------------------------------------------------------
-document.addEventListener("keypress",function(event){
-    makeSound(event.key);
-    buttonAnimation(event.key);
-})
-
 // keypressListner() proto -----------------------------------------------------------------
 //var keysPressed = [];
 // document.addEventListener("keypress", function(event) {
@@ -33,7 +7,21 @@ document.addEventListener("keypress",function(event){
 // });
 
 
-function makeSound(key){
+// detecting button press! ----------------------------------------------------------------
+for(let i = 0; i < document.querySelectorAll(".drum").length; i++){
+    // anonymus function
+    document.querySelectorAll('.drum')[i].addEventListener("click", ()=> {
+        makeSound(this.innerHTML);
+        buttonAnimation(this.innerHTML);
+    });
+}
+// detecting keyboard press! ---------------------------------------------------------------
+document.addEventListener("keypress",(event)=>{
+    makeSound(event.key);
+    buttonAnimation(event.key);
+})
+
+const makeSound=(key)=>{
     switch (key) {
         case "w":
             var audio = new Audio("sounds/tom-1.mp3");
@@ -70,9 +58,9 @@ function makeSound(key){
 }
 
 
-function anotherAddEventListener(typeofEvent,callback){
+const anotherAddEventListener=(typeofEvent,callback)=>{
     //detect event code
-    var eventThatHappened = {
+    let eventThatHappened = {
         eventType: "keypress",
         key: "p",
         durationOfKeypress: 2 //second       
@@ -82,16 +70,13 @@ function anotherAddEventListener(typeofEvent,callback){
     }
 }
 
-anotherAddEventListener("keypress",function(event){
+anotherAddEventListener("keypress",(event)=>{
     console.log(event);
 })
 
-function buttonAnimation(currentKey){
-    //var activeButton = document.querySelector("." + currentKey).classList.toggle('pressed');
-    var activeButton = document.querySelector("." + currentKey);
-
+const buttonAnimation=(currentKey)=>{
+    let activeButton = document.querySelector("." + currentKey);
     activeButton.classList.add("pressed");
-
     setTimeout(function(){
         activeButton.classList.remove("pressed");
     },100)
